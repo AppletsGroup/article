@@ -14,11 +14,11 @@ import ChannelsCombobox from 'components/ChannelsCombobox/ChannelsCombobox'
 import NonePubEditor from 'components/NonePubEditor/NonePubEditor'
 import { ArrowLeftIcon } from '@heroicons/react/24/solid'
 import { Post } from 'applet-types'
-import toast from 'react-hot-toast'
+import { useApplet } from 'applet-shell'
 
 export default function ArticleFormPage() {
   const { articleId } = useParams<{ articleId: string }>()
-
+  const applet = useApplet()
   const navigate = useNavigate()
   const dispatch = useAppDispatch()
   const [currentPost, setCurrentPost] = useState<Post>()
@@ -142,7 +142,7 @@ export default function ArticleFormPage() {
         if (titleInputRef.current != null) titleInputRef.current.value = ''
         setResetEditorContent(!resetEditorContent)
       }
-      toast.success('create article success')
+      applet?.toast.success('create article success')
       navigate(`/article/${newPost.id}`, { replace: true })
     }
   }

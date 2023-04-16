@@ -11,15 +11,25 @@ import { store } from './store'
 import ChannelPage from './pages/ChannelPage/ChannelPage'
 import ChannelsPage from 'pages/ChannelsPage/ChannelsPage'
 import ArticleFormPage from 'pages/ArticleFormPage/ArticleFormPage'
-import DefaultLayout from 'layouts/DefaultLayout'
 import ChannelFormPage from 'pages/ChannelFormPage/ChannelFormPage'
 import ArticlesPage from 'pages/ArticlesPage/ArticlesPage'
-import { Toaster } from 'react-hot-toast'
+import { AppletProvider, DefaultLayout } from 'applet-shell'
+
+const menus = [
+  { path: '/', label: 'Home' },
+  { path: '/articles', label: 'Articles' },
+  { path: '/article/new', label: 'Write' }
+]
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <>
-      <Route element={<DefaultLayout />}>
+      <Route
+        element={(
+          <DefaultLayout
+            menus={menus}
+            title="Article" />
+      )}>
         <Route
           path="/"
           index
@@ -53,10 +63,11 @@ const router = createBrowserRouter(
 
 function App() {
   return (
-    <Provider store={store}>
-      <RouterProvider router={router} />
-      <Toaster />
-    </Provider>
+    <AppletProvider>
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>
+    </AppletProvider>
   )
 }
 

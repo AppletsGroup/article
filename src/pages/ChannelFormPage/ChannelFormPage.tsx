@@ -2,9 +2,10 @@ import { Button, InputField } from 'applet-design'
 import { useRef } from 'react'
 import { useNavigate } from 'react-router-dom'
 import { createChannel } from 'applet-apis'
-import toast from 'react-hot-toast'
+import { useApplet } from 'applet-shell'
 
 export default function ChannelFormPage() {
+  const applet = useApplet()
   const titleInputRef = useRef<HTMLInputElement>(null)
   const navigate = useNavigate()
 
@@ -12,7 +13,7 @@ export default function ChannelFormPage() {
     const channelTitle = titleInputRef.current?.value
 
     if (!channelTitle || channelTitle === '') {
-      toast.error('Title is required')
+      applet?.toast.error('Title is required')
       return
     }
 
